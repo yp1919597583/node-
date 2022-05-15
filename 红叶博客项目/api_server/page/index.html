@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/layui.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.compat.css">
+    <script src="layui.js"></script>
+    <script src="jquery.js"></script>
+    <title>登录</title>
+    <style>
+    
+     .w{
+         height: 550px;
+         background:url(e621b49a9913d462464df1d36b862bc9.jpeg) no-repeat;
+         opacity: .8;
+         background-size: cover;
+         margin-top: 200px;
+        }
+  form{
+      position: relative;
+      top: 100px;
+      width: 400px;
+      height: 300px;
+     
+  }
+
+  .layui-form-item.last{
+      display: none;
+  }
+    #log{
+      width: 60px;
+      height: 61px;
+      border-radius: 50%;
+     
+    }
+    #login_nav{
+      background-color: #009688;
+    }
+    .erro_message{
+      position: relative;
+      top: -240px;
+      left: 105px;
+      width: 200px;
+      height: 45px;
+      border-radius: 16px;
+      background-color: #5FB878;
+      animation-duration: 1s;
+      display: none;
+      font-size: 20px;
+      text-align: center;
+      line-height: 45px;
+      color: #ff2222;
+      
+      
+    }
+    </style>
+</head>
+<body>
+
+
+    <!-- 导航 -->
+
+    <ul class="layui-nav" lay-filter="" id="login_nav">
+        <img src="favio.jpg" alt="" id="log">
+        <li class="layui-nav-item layui-this"><a href="">登录</a></li>
+       
+        
+      </ul>
+       
+      <script>
+         
+      //注意：导航 依赖 element 模块，否则无法进行功能性操作
+      layui.use('element', function(){
+        var element = layui.element;
+      });
+      </script>
+
+    <div class="w">
+
+        <div class="layui-container">
+            <div class="layui-row layui-col-md-offset6" >
+            
+            <form action="">
+                <div class="layui-form-item" id="tj_chick" style="display:none;"> 
+
+                   
+                    <label class="layui-form-label"></label>
+                    <div class="layui-input-inline layui-anim  xxk" style="background-color: aquamarine; height: 45px; line-height: 45px;text-align: center; color: #FF5722;font-size: 20px;border-radius: 26px;">
+                    
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+
+                   
+                  <label class="layui-form-label">账号:</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="userName" required lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input id">
+                  </div>
+              </div>
+                  
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">密码:</label>
+                    <div class="layui-input-inline">
+                     
+                      <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input pwd">
+                    </div>
+                  </div>
+                  <div class="layui-form-item last" style="display: none;">
+                    <label class="layui-form-label">邮箱:</label>
+                    <div class="layui-input-inline">
+                      <input type="email" name="email"  required lay-verify="required" placeholder="请输入可用邮箱" autocomplete="off" class="layui-input email">
+                    </div>
+                  </div>
+
+                  
+
+                  <div class="layui-form-item">
+                    <div class="layui-input-block">
+                      <button class="layui-btn login_btn" lay-submit lay-filter="formDemo" style="float: left;">登录</button>
+                      <button  class="layui-btn zc_btn"  lay-filter="formDemo"  lay-submit style="display: none; float: left;">注册</button>
+                    </div>
+                  </div>
+                  <label class="layui-form-label" style="margin-left: 70px; width: 200px;"><a href="javascript:;" class="zhuce" style="color: coral;">立即注册!</a></label>
+
+            </form>
+            <div class="erro_message"></div>
+            </div>
+          </div>      
+
+         
+    </div>
+    <script>
+       
+       //提交验证
+
+
+        $(function(){
+        
+           var flage=true;
+            $(".zhuce").on('click',()=>{
+                if(flage){
+                $(".layui-form-item.last").css("display","block");
+                $(".zc_btn").css("display","block");
+                $(".zhuce").html("已有账号立即登录!")
+                $("#tj_chick").css("display","none");
+                $(".login_btn").css("display","none");
+                flage=false;
+                }else{
+                $("#tj_chick>div").css("display","none");
+                $(".layui-form-item.last").css("display","none");
+                $(".zc_btn").css("display","none");
+                $(".zhuce").html("立即注册!")
+                $(".login_btn").css("display","block"); 
+                flage=true;        
+                }
+            })
+
+        })
+
+        //登录通过jquery ajax
+       $(".login_btn").on('click',()=>{
+         let id=$('.id').val();
+         let pwd=$('.pwd').val();
+         
+         $.post("http://localhost:8080/api/login",{userName:id,password:pwd},function(data){
+          if(data.status==0){
+           
+            const token=JSON.stringify(data.token)
+            localStorage.setItem("token",token);
+            location.href=" /ht.html";
+
+            // $.ajax({
+            //   url:"http://localhost:8080/page/ht.html",
+            //   type:"post",
+            //   dataType:"json",
+            //   success:function(data){
+            //     console.log(data);
+            //   },
+            //   error:()=>{
+            //     console.log("失败");
+            //   },
+            //   headers:{
+            //     Authorization:localStorage.getItem("token")
+            //   }
+            // })
+           
+          
+          }else if( data.status !=0 && id!='' && pwd !=''){
+            $("#tj_chick").css("display","block");
+            $("#tj_chick>.xxk").html("账号或密码错误!");
+        $("#tj_chick>.xxk").addClass("layui-anim-scaleSpring");
+        
+          }
+
+         })
+
+
+
+         //原生js发送post后端拿不到数据
+      //   const xhr=new   XMLHttpRequest();
+      //  xhr.open("post","http://localhost:8080/api/login");
+
+      //  xhr.send(`userName=${id}&password=${pwd}`);
+      //  console.log(`userName=${id}&password=${pwd}`);
+      //  xhr.onreadystatechange=()=>{
+
+      //   if(xhr.readyState==4){
+      //     if(xhr.status>=200 && xhr.status<300){
+      //       console.log(xhr.response);
+      //     }
+
+      //   }
+
+
+      //  }
+
+       })
+       
+        
+       
+         //注册(通过Ajax方式)
+
+
+
+         $('.zc_btn').on('click',function(){
+          let id=$(".id").val();
+          let pwd=$(".pwd").val();
+          let email=$(".email").val();
+          $.post("http://localhost:8080/api/reguser",{userName:id,password:pwd,email:email},(data)=>{
+            if(data.status==0){
+              window.location="index.html";
+            }else if(data.message=="\"userName\" is not allowed to be empty"){
+             erro("账号不能为空!");
+            }else if(data.message=='"password" is not allowed to be empty'){
+              erro("密码不能为空!");
+              
+            }
+            else if(data.message=='"email" is not allowed to be empty'){
+              erro("邮箱不能为空!");
+            }else if(data.message=='"email" must be a valid email'){
+              erro("邮箱格式错误!");
+            }else if(data.message=="用户名已存在!"){
+              erro("用户名已经存在！");
+            
+            }else if(data.message=="邮箱已被使用!"){
+              erro("邮箱已被注册!");
+            }else{
+              erro("密码必须为6-12位!")
+            }
+            
+          })
+          return false;
+        })
+
+          //显示错误提示
+          var erro=(message)=>{
+            $('.erro_message').css("display","block").addClass("animated rubberBand ");
+            $('.erro_message').html(message);
+              setTimeout(() => {
+                $('.erro_message').addClass("animated fadeOut")
+              }, 1000);
+              $('.erro_message').removeClass("animated fadeOut")
+          }
+          
+    </script>
+            
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/layui.css">
+    <script src="jquery.js"></script>
+    <script src="layui.js"></script>
+    <title>Document</title>
+</head>
+<body>
+  <table id="demo" lay-filter="test"></table>
+  <script>
+  
+
+  layui.use('table', function(){
+    var table = layui.table;
+    
+    //绑定删除行事件
+
+    table.on("tool(test)",function(cz){
+      
+      layui.use("layer",function(){
+       let layer=layui.layer;
+       layer.confirm('是否要删除该博客,删除了不可恢复!', {
+         title:'警告',
+         btn: ['确定','取消']
+       }, function(index){
+         //确认处理事件
+       console.log(cz.data);
+        $.ajax({
+          url:"http://localhost:8080/myArtic/delete_artic",
+          type:"post",
+          data:{
+            Id:cz.data.Id
+          },
+          error:function(){
+            alert("未知错误!");
+          },
+          success:function(request){
+            if(request.status==0){
+              //删除当前行,并更新缓存
+              cz.del();
+              layer.msg("删除成功!");
+              layer.close(index);
+            }else{
+              layer.msg("删除失败!");
+              console.log(request);
+              layer.close(index);
+            }
+          },
+          headers:{
+            Authorization:JSON.parse(localStorage.getItem('token'))
+          }
+          
+        })
+        
+        
+       }, function(index){
+         //取消处理事件
+      
+         layer.close(index);
+
+       });
+
+
+     })
+
+
+    });
+
+    table.render({
+      
+      elem: '#demo'
+      ,url: 'http://localhost:8080/myArtic/get_my_artic' //数据接口
+      ,page: true //开启分页
+      ,limits:[5,10,20,40]
+      ,limit:5
+      , parseData: function (res) {
+                    var result;
+                  if (this.page.curr) {
+                   
+                      result = res.data.slice(this.limit * (this.page.curr - 1), this.limit * this.page.curr);
+                      
+                  } else {
+                      result = res.data.slice(0, this.limit);
+                  }
+                
+                  return {"code": res.code, "msg": res.msg, "count": res.data.length, "data": result};
+              }
+    
+      ,headers:{
+        Authorization:JSON.parse(localStorage.getItem("token")) 
+      }
+      ,cols: [[ //表头
+        {field: 'Id', title: 'ID', width:80, sort: true, fixed: 'left'},
+        {field: 'username', title: '用户名', width:100},
+        {field: 'name', title: '文章类别', width:120},
+        {field: 'artic_title', title: '文章标题', width:110},
+        {field: 'alias',align:'center', title: '文章内容', width: 1200},
+        { title: '操作',align:'center',width: 100,templet:function(){
+          return  `<div><a href="javascript:;" class="delete"><button class="layui-btn layui-btn-danger layui-btn layui-btn-sm" lay-event="del">删除</button> </a></div>`
+        }
+        }
+        
+      ]],
+
+
+    });
+   
+  
+   
+  });
+
+//   var del=function(){
+//     console.log($(this).parent().parent().parent().parent());
+//     console.log($('.delete').length);
+//      layui.use("layer",function(){
+//        let layer=layui.layer;
+//        layer.confirm('是否要删除该博客,删除了不可恢复!', {
+//          title:'警告',
+//          btn: ['确定','取消']
+//        }, function(index){
+//          //确认处理事件
+//         console.log($('.delete'));
+//      //  console.log($(this).parent().parent());
+//      //   console.log($(this));
+//         layer.close(index);
+        
+//        }, function(index){
+//          //取消处理事件
+//         alert("取消")
+//          layer.close(index);
+
+//        });
+
+
+//      })
+
+
+
+//  }
+
+ 
+ 
+
+  
+  </script>
+</body>
+</html>

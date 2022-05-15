@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>博客后台</title>
+  <link rel="stylesheet" href="css/layui.css">
+  <script src="echarts.js"></script>
+  <script src="jquery.js"></script>
+  
+  
+  <style>
+    #joinUs>img{
+      display: none;
+    }
+    #joinUs:hover>img{
+      position: relative;
+      left: 60px;
+      display: block;
+
+    }
+    #ht_nav{
+      background-color: #009688;
+    }
+    #ht_footer{
+      background-color: #009688;
+    }
+    .bt{
+      float: left;
+      width: 700px;
+      height: 500px;
+    }
+    .zx{
+      float: left;
+      width: 900px;
+      height: 500px;
+    }
+  
+ 
+  </style>
+</head>
+
+<body>
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header" id="ht_nav">
+    <div class="layui-logo layui-hide-xs layui-bg-black">红叶博客后台</div>
+    <!-- 头部区域（可配合layui 已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <!-- 移动端显示 -->
+      <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+        <i class="layui-icon layui-icon-spread-left"></i>
+      </li>
+      <li class="layui-nav-item layui-hide-xs"><a href="">评论我的<span class="layui-badge">39</span></a></li>
+      <li class="layui-nav-item layui-hide-xs"><a href="">今日浏览量</a></li>
+    
+    </ul>
+   
+   
+   
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+
+          <a href="javascript:;"  id="my_name">
+          
+        </a>
+        <dl class="layui-nav-child" id='view_img'>
+          <dd><a href="javascript:;" id="modifyPwd">修改密码</a></dd>
+          <dd><a href="javascript:;" id="modify_avatar">修改头像</a></dd>
+          <dd><a href="javascript:;" id="cancel_login">退出登录</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
+        <a href="javascript:;">
+          <i class="layui-icon layui-icon-more-vertical"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <ul class="layui-nav layui-nav-tree" lay-filter="test">
+        <li class="layui-nav-item ">
+          <a class="" href="javascript:;">博客分类</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javaSE.html" target="right_frame" id="javaSE">JavaSE</a></dd>
+            <dd><a href="JavaWEB.html" target="right_frame" id="JavaWEB">JavaWEB</a></dd>
+            <dd><a href="Linux.html" target="right_frame" id="Linux">Linux</a></dd>
+           
+          </dl>
+        </li>
+        <li class="layui-nav-item" id="view_img">
+          <a href="javascript:;">博客管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="bokeIssue.html" target="right_frame" id="issue_boke">发表博客</a></dd>
+            <dd><a href="bokedelete.html" id="delete_boke" target="right_frame">删除博客</a></dd>
+            
+          </dl>
+        </li>
+        <li class="layui-nav-item" id="joinUs"><a href="javascript:;">加入我们</a><img src="联系.jpg" alt=""></li>
+        
+      </ul>
+    </div>
+  </div>
+  
+
+    
+ <!-- 内容主体区域 -->
+  <div class="layui-body">
+    <iframe src="statisticsData.html" frameborder="0" width="100%" height="100%" name="right_frame"></iframe>
+  </div>
+  
+  <div class="layui-footer" id="ht_footer">
+    <!-- 底部 -->
+    
+  </div>
+
+  <!-- 底部免责 -->
+  
+</div>
+<script src="layui.js"></script>
+<script src="ht.js">
+//JS 
+</script>
+</body>
+</html>

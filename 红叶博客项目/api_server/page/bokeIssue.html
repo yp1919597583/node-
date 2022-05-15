@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/layui.css">
+    <script src="jquery.js"></script>
+    <script src="layui.js"></script>
+    <script src="echarts.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.min.js"></script>  
+    
+    <title>Document</title>
+</head>
+<body>
+    <div class="layui-card">
+     
+        <div class="layui-form-item">
+          <label class="layui-form-label">博客标题</label>
+          <div class="layui-input-block">
+            <input type="text" name="title" id="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+      
+        <form class="layui-form" action="">
+        <div class="layui-form-item">
+          <label class="layui-form-label" >博客类型</label>
+          
+          <div class="layui-input-block">
+           <input type="radio" name="dx" value="javaSE" checked title="javaSE" >
+           <input type="radio" name="dx" value="javaWEB" title="javaWEB"  >
+           <input type="radio" name="dx" value="Linux" title="Linux" >
+          </div>
+        </div>
+        </div>
+      </form>
+      
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">博客内容</label>
+          <div class="layui-input-block">
+            <textarea id="artic_nr" name="desc" placeholder="请输入内容" class="layui-textarea" style="height: 200px;"></textarea>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn"  id="post_artic" style="background-color: #FF5722;">立即发布</button>
+            <button id="reset" class="layui-btn" style="background-color: #1E9FFF;">清空</button>
+          </div>
+        </div>
+      
+      </div>
+      <script src="bokeIssue.js"></script>
+</body>
+</html>

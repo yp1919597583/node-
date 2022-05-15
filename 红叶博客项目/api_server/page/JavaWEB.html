@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/layui.css">
+    <script src="jquery.js"></script>
+    <script src="layui.js"></script>
+    <title>javaWEB</title>
+</head>
+<body>
+    
+     
+      <script>
+      $.ajax({
+        url:"http://localhost:8080/myArtic/get_allartic_byclass",
+        type:"get",
+        dataType:'json',
+        data:{
+          name:"javaWEB"
+        },
+        error:function(){
+          console.log("获取失败!");
+        },
+        success:function(data){
+
+          let jg=data.boke;
+         
+          for (let index = 0; index <jg.length; index++) {
+            
+            //动态创建面板
+            $('body').append(`<div class="layui-card">
+        <a href="javascript:;">
+        <div class="layui-card-header">标题:${jg[index].artic_title}<button type="button" class="layui-btn  layui-btn-warm layui-btn-xs" style="margin-left: 40px;">${jg[index].username}</button></div>
+        <div class="layui-card-body">
+         ${jg[index]. alias}
+        </div>
+      </a>
+     
+      <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">评论</label>
+          <div class="layui-input-block">
+            <textarea id="artic_nr" name="desc" placeholder="请输入内容" class="layui-textarea" style="height: 100px;"></textarea>
+          </div>
+        </div>
+        <button class="layui-btn layui-btn-normal" style="display: block; margin-left: 120px;">评论</button>
+        <i class="layui-icon" style="font-size: 20px; color:#FF5722;margin-left: 60px;">&#xe6c6;</i> <i class="layui-icon" style="font-size: 20px; color: #FF5722;margin-left: 160px;">&#xe6c5;</i>
+      </div>`)
+
+
+            
+          }
+
+
+          
+        },
+        headers:{
+          authorization:JSON.parse(localStorage.getItem('token'))
+        }
+      })
+      </script>
+</body>
+</html>
