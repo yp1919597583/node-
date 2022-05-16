@@ -1,8 +1,5 @@
 const express=require("express");
 const router=express.Router();
-
-
-
 //导入用户路由处理函数
 const userHandel= require("../router_handler/user");
 //1.导入用户验证的中间件
@@ -18,18 +15,4 @@ router.post("/reguser",express_jio(reg_login_schems),userHandel.regUser)//相当
 router.post("/login",express_jio(reg_login_schems),userHandel.login)//验证通过之后才会继续调用userHandel.login
 //获取用户名,头像,作品,用于展示
 // router.get("/get_other_info",userHandel.getSomeInfo)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports=router
